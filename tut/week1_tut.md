@@ -75,3 +75,32 @@ Output=Step Function(o1+o2+o3-2.5)是对应隐藏层神经元的输出。
 这样的设置确保了只有在所有子句都为真（即都为1）时，最终输出为1，符合CNF中所有子句的AND逻辑。这种两层神经网络能够有效地对任何给定的CNF形式的逻辑表达式进行计算和模拟。
 
 ![Alt text](image-4.png)
+XOR网络在输入相同的时候输出为0，输入不同的时候输出为1
+![Alt text](image-5.png)
+由于是非线性分离函数，所以不可以使用单层机感知解决，至少需要一层隐藏层的感知机MLP
+首先第一步构建一个XOR神经网络，该隐藏层有两个神经元，输出层有一个神经元
+![Alt text](image-6.png)
+import numpy as np
+
+def sigmoid(x):
+    return 1 / (1 + np.exp(-x))
+
+def xor_nn(x1, x2):
+    # 权重和偏置
+    w11, w12, b1 = 20, 20, -10
+    w21, w22, b2 = 20, 20, -30
+    w31, w32, b3 = 20, -20, -10
+    
+    # 隐藏层计算
+    h1 = sigmoid(w11 * x1 + w12 * x2 + b1)
+    h2 = sigmoid(w21 * x1 + w22 * x2 + b2)
+    
+    # 输出层计算
+    y = sigmoid(w31 * h1 + w32 * h2 + b3)
+    
+    return y
+
+# 测试
+inputs = [(0, 0), (0, 1), (1, 0), (1, 1)]
+for x1, x2 in inputs:
+    print(f"Input: ({x1}, {x2}), Output: {xor_nn(x1, x2)}")
