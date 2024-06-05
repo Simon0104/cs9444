@@ -213,6 +213,53 @@
   - 例子：将二维数据点分为三类，通过K-means算法确定聚类中心并分配数据点。
   - **Example**: Dividing two-dimensional data points into three clusters using the K-means algorithm.
 
----
+**Types of Learning**：
+➛ Supervised Learning：agent is presented with examples of inputs and their target outputs
+➛ Reinforcement Learning：agent is not presented with target outputs, but is given a reward signal,which it aims to maximize
+➛ Unsupervised Learning：agent is only presented with the inputs themselves, and aims to find structure in these inputs
 
-通过这些详细的解释和例子，相信你对从概率基础到监督学习、泛化与过拟合，以及强化学习和无监督学习的核心概念和应用有了更清晰的理解。如果你有更多问题或需要进一步的解释，请随时提问！
+监督学习（Supervised Learning）：代理（算法）被呈现输入及其目标输出的例子。
+强化学习（Reinforcement Learning）：代理没有被呈现目标输出，但会收到一个旨在最大化的奖励信号。
+无监督学习（Unsupervised Learning）：代理只被呈现输入本身，并旨在找到这些输入的结构
+
+Supervised Learning：
+we have a training set and a test set, each consisting of a set of items;
+for each item, a number of input attributes and a target value are specified.
+➛ the aim is to predict the target value, based on the input attributes.
+➛ agent is presented with the input and target output for each item in the
+training set; it must then predict the output for each item in the test set
+➛ various learning paradigms are available:
+→ Neural Network
+→ Decision Tree
+→ Support Vector Machine, etc.
+
+![Alt text](image.png)
+
+Ways to Avoid Overfitting in Neural Netorks
+➛ Limit the number of hidden nodes or connections
+➛ Limit the number of training epochs (weight updates)
+➛ Dropout
+➛ Weight Decay (Week 3)
+➛ Data Augmentation (Week 4)
+➛ Regularization
+
+![Alt text](image-1.png)
+
+横轴：权重更新的次数、隐藏节点数量、dropout等
+竖轴：误差大小，预测输出和实际输出之间的差异度量
+
+assumption：图表显示了过拟合的情况，因为随着模型在训练次数上的增加，模型逐渐学会了减少在训练集的预测错误，而且验证错误最终停止下降并且还有上升，表明模型对训练数据过度优化，对新数据不能有效泛化，这就是过拟合的表现
+这种观察帮助确定如何调整模型参数，例如通过提早停止训练、调整网络结构、应用正则化技术如Dropout等，来改善模型对新数据的泛化能力
+
+![Alt text](image-2.png)
+
+Dropout (7.12)
+➛ When training is finished and the network is deployed, all nodes are used,
+but the activation of each node is multiplied by the probability of “keeping” the
+node during training.
+➛ Thus, the activation received by each node is the average value of the
+activation it would have received during training.
+➛ Dropout forces the network to achieve redundancy because it must deal with
+situations where some features are missing.
+➛ Another way to view dropout is that it implicitly (and efficiently) simulates an
+ensemble of different architectures.
